@@ -1,0 +1,44 @@
+#login-page-main {
+    padding-top: 150px;
+}
+
+#login-page-card {
+    width: 600px;
+    height: 400px;
+}
+
+#login-header-image {
+    background-image: url('../../assets/messanger-icon.png');
+    background-size: cover;
+}
+
+#login-header-title {
+    padding-top: 5px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #03045e;
+    font-family: 'Georama', sans-serif;
+}
+
+mat-form-field {
+    width: 60%;
+}
+
+.loginButton {
+    margin-top: 15px;
+    width: 360px;
+    color: white;
+    background-color: #03045e;
+    border-radius: 25px;
+}
+
+@media only screen and (max-width: 599px) {
+    #login-page-card {
+        width: 400px;
+        height: 400px;
+    }
+
+    .loginButton {
+        width: 250px;
+    }
+}
