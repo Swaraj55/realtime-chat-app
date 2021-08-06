@@ -42,3 +42,21 @@ mat-form-field {
         width: 250px;
     }
 }
+
+// Import theming functions
+@import '~@angular/material/theming';
+
+// Define the application's custom theme.
+$success: mat-palette($mat-green);
+$danger: mat-palette($mat-red);
+
+::ng-deep {
+    .mat-snack-bar-success{
+        color: #ffffff !important;
+        background-color: mat-color($success, 500) !important;
+    }
+    .mat-snack-bar-danger {
+        color: #ffffff !important;
+        background-color: mat-color($danger, 500) !important;
+    }
+}

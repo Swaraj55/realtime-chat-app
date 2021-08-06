@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, NgForm } from '@angular/forms';
+import { SignupPageService } from '../../app/signup-page/signup-page.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup-page',
@@ -10,11 +12,16 @@ export class SignupPageComponent implements OnInit {
 
   signupForm: FormGroup = new FormGroup({});
   isSubmitted: boolean = false;
+  programmingLanguage: any[] = [
+    'JavaScript', 'Python', 'C++', 'JAVA'
+  ]
   
   @ViewChild('updateSignupForm') updateSignupForm : NgForm
 
   constructor(private element: ElementRef,
               private fb: FormBuilder,
+              private signupPage: SignupPageService,
+              private _snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
@@ -37,6 +44,15 @@ export class SignupPageComponent implements OnInit {
     } 
   }
 
+  openSnackBar(message: string, action: string, cssClass: string) {
+    this._snackBar.open(message, action, {
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+        panelClass: cssClass,
+        duration: 4000
+   });
+  } 
+
   onSubmit() {
     this.isSubmitted = true;
 
@@ -44,5 +60,21 @@ export class SignupPageComponent implements OnInit {
     if(this.signupForm.invalid) {
       return;
     }
+
+    let payload = {
+      email: this.signupForm.controls['email'].value,
+      name: this.signupForm.controls['name'].value,
+      room: this.signupForm.controls['room'].value,
+      password: btoa(this.signupForm.controls['password'].value),
+    }
+    
+    this.signupPage.singupUser(payload).subscribe((data: any) => {
+      if(data.status === 'success') {
+        this.openSnackBar('You successfully signup in Discover Chat!', '', 'mat-snack-bar-success');
+        this.updateSignupForm.resetForm({})
+      } else {
+        this.openSnackBar('You not successfully signup in Discover Chat!', '', 'mat-snack-bar-danger')
+      }
+    })
   }
 }

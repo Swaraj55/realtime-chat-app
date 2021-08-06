@@ -59,9 +59,9 @@
               
               <mat-label id="room-select-label">Select room</mat-label>
               <mat-select id="room-select" formControlName='room' required>
-                <mat-option>Javascript</mat-option>
-                <mat-option>Python</mat-option>
-                <mat-option>C++</mat-option>
+                <mat-option *ngFor="let room of programmingLanguage" [value]="room">
+                  {{room}}
+                </mat-option>
               </mat-select>
               <!-- <mat-icon matSuffix class="secondary-text" style="color: #03045e;">meeting_room</mat-icon> -->
             
