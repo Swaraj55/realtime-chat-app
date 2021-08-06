@@ -52,6 +52,7 @@
             </mat-form-field>
 
             <button class="loginButton" type="submit" [disabled]="loginForm.invalid" mat-raised-button>Login</button>
-        </form>
+            <p style="padding-top: 5px;">Not registered yet? <a [routerLink] = "['/signup']" class="createAccount">Create an Account</a></p>
+          </form>
     </mat-card>
 </div>
