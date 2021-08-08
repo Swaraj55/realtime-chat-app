@@ -1,11 +1,21 @@
 export class User {
 
-   
-         email: string;
-         password: string;
-         token: string;
-         room: string;
-         name: string;
-         status: string;
-    
+    constructor(
+        public email = '',
+        public password = '',
+        public token: string = '',
+        public room: string = '',
+        public name: string = '',
+        public status: string = '',
+    ) {}
+         
+    clone( ) {
+        return new User (
+            this.email = '',
+            this.password = '',
+            this.room = '',
+            this.name = '',
+            this.status = ''
+        )
+    }
 }
