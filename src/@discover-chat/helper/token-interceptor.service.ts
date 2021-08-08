@@ -8,15 +8,16 @@ import { Observable } from 'rxjs';
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
+  currentUser: any;
   constructor(private auth: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    const currentUser = this.auth.currentUserValue;
-    console.log(currentUser)
+    this.currentUser = this.auth.currentUserValue;
+    console.log(this.currentUser)
 
     let tokenizedRequest = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${currentUser.token}`
+        Authorization: `Bearer ${this.currentUser.token}`
       }
     });
 

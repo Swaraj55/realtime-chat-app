@@ -25,10 +25,6 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
    }
 
-  public get currentUserValue(): User {
-   return this.currentUserSubject.value;
-  }
-
   public loggedIn(payload) {
     let apiEndpoint = '/api/login';
     return this.httpClient.post<any>(apiEndpoint, payload)
@@ -49,6 +45,10 @@ export class AuthService {
 
             return this.theAuthenticatedUser; 
           }));
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
   }
 
   isLoggedIn() {
