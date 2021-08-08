@@ -13,8 +13,6 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
     this.currentUser = this.auth.currentUserValue;
-    console.log(this.currentUser)
-
     let tokenizedRequest = req.clone({
       setHeaders: {
         Authorization: `Bearer ${this.currentUser.token}`
