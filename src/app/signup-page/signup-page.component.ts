@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, NgForm } from '@angular/forms';
 import { SignupPageService } from '../../app/signup-page/signup-page.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-page',
@@ -21,7 +22,8 @@ export class SignupPageComponent implements OnInit {
   constructor(private element: ElementRef,
               private fb: FormBuilder,
               private signupPage: SignupPageService,
-              private _snackBar: MatSnackBar
+              private _snackBar: MatSnackBar,
+              private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -70,7 +72,9 @@ export class SignupPageComponent implements OnInit {
     
     this.signupPage.singupUser(payload).subscribe((data: any) => {
       if(data.status === 'success') {
+        localStorage.setItem('token', data.token);
         this.openSnackBar('You successfully signup in Discover Chat!', '', 'mat-snack-bar-success');
+        this.router.navigate(['/discoverchat'])
         this.updateSignupForm.resetForm({})
       } else {
         this.openSnackBar('You not successfully signup in Discover Chat!', '', 'mat-snack-bar-danger')

@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -28,13 +28,19 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
+import { DiscoverChatComponent } from './discover-chat/discover-chat.component';
+import { AuthService } from './Auth/auth.service';
+import { SignupPageService } from './signup-page/signup-page.service';
+import { AuthGuard } from './Auth/auth.guard';
+import { TokenInterceptorService } from '../@discover-chat/helper/token-interceptor.service'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    SignupPageComponent
+    SignupPageComponent,
+    DiscoverChatComponent
   ],
   imports: [
     BrowserModule,
@@ -64,10 +70,17 @@ import { SignupPageComponent } from './signup-page/signup-page.component';
     //Router
     RouterModule.forRoot([
       {path: '' , component: LoginPageComponent},
-      {path: 'signup' , component: SignupPageComponent}
+      {path: 'signup' , component: SignupPageComponent},
+      {path: 'discoverchat' , component: DiscoverChatComponent, canActivate: [AuthGuard]}
     ])
   ],
-  providers: [],
+  providers: [AuthService, SignupPageService, 
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
