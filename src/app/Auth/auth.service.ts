@@ -22,20 +22,18 @@ export class AuthService {
 
     // Populate the Behavior Subject with an initial value, the logged in user.
     this.currentUserSubject = new BehaviorSubject<User>(storage.get(CURRENT_USER, StorageTranscoders.JSON));
-    
+    this.currentUserSubject.subscribe((data: any) => {
+      console.log(data)
+    })
     this.currentUser = this.currentUserSubject.asObservable();
-    console.log(this.currentUser.subscribe((data: any) => {
-      // console.log("Data",data)
-    }))
    }
 
   public get currentUserValue(): User {
-    //console.log(this.currentUserSubject.value)
    return this.currentUserSubject.value;
   }
 
   public loggedIn(payload) {
-    let apiEndpoint = '/api/login';
+    let apiEndpoint = 'http://localhost:3000/api/login';
     return this.httpClient.post<any>(apiEndpoint, payload)
           .pipe(map(authResponse => {
             this.theAuthenticatedUser =  {
@@ -60,9 +58,5 @@ export class AuthService {
     let item = JSON.parse(sessionStorage.getItem('currentUser'));
     console.log(item.token)
     return !!item.token;
-  }
-
-  public getToken(): string {
-    return localStorage.getItem('token')
   }
 }
