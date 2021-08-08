@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {SESSION_STORAGE, StorageService, StorageTranscoders} from 'ngx-webstorage-service';
-import { User } from '../../@discover-chat/user';
+import { User } from '../user';
 
 const CURRENT_USER = 'currentUser';
 
@@ -21,10 +21,7 @@ export class AuthService {
   ) {
 
     // Populate the Behavior Subject with an initial value, the logged in user.
-    this.currentUserSubject = new BehaviorSubject<User>(storage.get(CURRENT_USER, StorageTranscoders.JSON));
-    this.currentUserSubject.subscribe((data: any) => {
-      console.log(data)
-    })
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
     this.currentUser = this.currentUserSubject.asObservable();
    }
 
@@ -33,7 +30,7 @@ export class AuthService {
   }
 
   public loggedIn(payload) {
-    let apiEndpoint = '/api/login';
+    let apiEndpoint = 'http://localhost:3000/api/login';
     return this.httpClient.post<any>(apiEndpoint, payload)
           .pipe(map(authResponse => {
             this.theAuthenticatedUser =  {
@@ -44,19 +41,23 @@ export class AuthService {
               status: authResponse.status
             };
 
-            this.storage.set(CURRENT_USER, this.theAuthenticatedUser, StorageTranscoders.JSON);
+            localStorage.setItem('user', JSON.stringify(this.theAuthenticatedUser));
 
             // Set the current user's profile. This can be accessed by other components by injecting
             // this service and subscribing to currentUserValue.
             this.currentUserSubject.next(this.theAuthenticatedUser);
 
-            return this.currentUserValue; 
+            return this.theAuthenticatedUser; 
           }));
   }
 
   isLoggedIn() {
-    let item = JSON.parse(sessionStorage.getItem('currentUser'));
-    console.log(item.token)
+    let item = JSON.parse(localStorage.getItem('user'));
     return !!item.token;
+  }
+
+  getToken() {
+    console.log(JSON.parse(localStorage.getItem('user')))
+    return JSON.parse(localStorage.getItem('user'))
   }
 }

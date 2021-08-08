@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, NgForm } from '@angular/forms';
-import { AuthService } from '../Auth/auth.service';
+import { AuthService } from '../../@discover-chat/Auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -71,8 +71,6 @@ export class LoginPageComponent implements OnInit {
 
     this.authService.loggedIn(payload).pipe(first()).subscribe((data: any) => {
       if(data.status === 'success') {
-        console.log(data)
-        localStorage.setItem('token', data.token);
         this.openSnackBar('Login successfully', '', 'mat-snack-bar-success');
         this.router.navigate(['/discoverchat'])
       } else {

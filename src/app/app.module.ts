@@ -29,9 +29,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { DiscoverChatComponent } from './discover-chat/discover-chat.component';
-import { AuthService } from './Auth/auth.service';
+import { AuthService } from '../@discover-chat/Auth/auth.service';
 import { SignupPageService } from './signup-page/signup-page.service';
-import { AuthGuard } from './Auth/auth.guard';
+import { AuthGuard } from '../@discover-chat/Auth/auth.guard';
 import { TokenInterceptorService } from '../@discover-chat/helper/token-interceptor.service'
 
 
