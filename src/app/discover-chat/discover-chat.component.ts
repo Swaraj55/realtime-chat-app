@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-discover-chat',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscoverChatComponent implements OnInit {
 
-  constructor() { }
+  roomName = JSON.parse(localStorage.getItem('user'));
+
+  users = ['swaraj', 'pawan', 'saurabh', 'aman'];
+  constructor(private element: ElementRef) { }
 
   ngOnInit(): void {
+    this.element.nativeElement.ownerDocument.body.style.backgroundColor = '#FFDAB9';
   }
 
 }

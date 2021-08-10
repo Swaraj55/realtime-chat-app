@@ -1,1 +1,56 @@
-<p>discover-chat works!</p>
+<div class="container">
+
+    <div class="row chat-header-section">
+        <div class="col-md-6 col-lg-6">
+            <h4 class="fw-bold fs-3" style="color: #FF4C29;">
+            <img src="../../assets/messanger-icon.png" alt="messanger icon" id="logo-discover-chat">
+            Discover Chat</h4>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <button class="btn btn-outline-primary float-end mt-2">Leave Room</button>
+        </div>
+    </div>
+
+    <div class="row sidebar-and-chat-messenger">
+        <div class="col-md-3 col-lg-3 sidebar-color">
+            <div class="col-12" style="padding-top: 10px;">
+                <p class="fw-bold fs-5" style="color: #FF4C29;">
+                    <i class="fas fa-comments" style="color: #FF4C29;"></i>&nbsp;Room Name: 
+                </p>
+
+                <p class="fs-6" style="color: #FF4C29;">
+                    {{roomName.room}}
+                </p>
+                <hr>
+
+                <p class="fw-bold fs-5" style="color: #FF4C29;">
+                    <i class="fas fa-users" style="color: #FF4C29;">&nbsp;Users</i>
+                </p>
+
+                <p class="fs-6" style="color: #FF4C29;" *ngFor="let user of users">
+                    {{user}}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-9 col-lg-9 messenger-color">
+            <div class="col-12 chat-messages" >
+                <div class="message">
+                    <p class="meta fs-5">Brad <span>9:12pm</span></p>
+                    <p class="fs-6 text-mesage">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
+                        repudiandae.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-message-area">
+        <div class="col-12">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Enter Message" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-primary" type="button" id="button-addon2">Send</button>
+            </div>
+        </div>
+    </div>
+</div>

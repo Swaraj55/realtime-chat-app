@@ -24,6 +24,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSelectModule} from '@angular/material/select';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -66,6 +67,7 @@ import { TokenInterceptorService } from '../@discover-chat/helper/token-intercep
     MatSidenavModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatToolbarModule,
 
     //Router
     RouterModule.forRoot([

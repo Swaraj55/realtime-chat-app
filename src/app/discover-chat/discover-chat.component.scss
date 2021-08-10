@@ -1,0 +1,66 @@
+.chat-header-section {
+    background-color: #082032;
+    padding-top: 10px
+}
+
+.container {
+    padding-top: 100px;
+}
+
+#logo-discover-chat {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+//Custom Styling of Bootstrap Button
+.btn-outline-primary {
+  color: #FF4C29;
+  background-color:transparent;
+  background-image: none;
+  border-color: #FF4C29;
+}
+.btn-outline-primary:hover {
+    color: #082032;
+    background-color: #FF4C29;
+    border-color: #FF4C29;
+}
+.btn-outline-primary:focus, .btn-outline-primary.focus {
+    box-shadow:0 0 0 .2rem rgba(255, 76, 41, 0.9)
+}
+
+
+.sidebar-and-chat-messenger {
+    height: 400px;
+    .sidebar-color {
+        background-color: #082032;
+    }
+}
+hr{
+    border-top:4px solid #FF4C29;
+}
+.text-message-area {
+    background-color: #082032;
+    padding-top: 20px;
+}
+
+.messenger-color {
+    background-color: #EDEDED;
+    overflow-y: scroll;
+    padding: 30px;
+    .chat-messages .message {
+        padding: 10px;
+        margin-bottom: 15px;
+        background-color: #082032;
+        border-radius: 5px;
+    }
+    .chat-messages .message .meta {
+        font-size: 15px;
+        font-weight: bold;
+        color: #FF4C29;
+        opacity: 0.7;
+        margin-bottom: 7px;
+    }
+    .text-mesage{
+        color: #EDEDED;
+    }
+}

@@ -26,7 +26,7 @@ export class AuthService {
    }
 
   public loggedIn(payload) {
-    let apiEndpoint = '/api/login';
+    let apiEndpoint = 'http://localhost:3000/api/login';
     return this.httpClient.post<any>(apiEndpoint, payload)
           .pipe(map(authResponse => {
             this.theAuthenticatedUser =  {
