@@ -34,7 +34,8 @@ export class AuthService {
               password: authResponse.user.password,
               room: authResponse.user.room,
               token: authResponse.token,
-              status: authResponse.status
+              status: authResponse.status,
+              name: authResponse.user.name
             };
 
             localStorage.setItem('user', JSON.stringify(this.theAuthenticatedUser));

@@ -34,8 +34,10 @@ import { AuthService } from '../@discover-chat/Auth/auth.service';
 import { SignupPageService } from './signup-page/signup-page.service';
 import { AuthGuard } from '../@discover-chat/Auth/auth.guard';
 import { TokenInterceptorService } from '../@discover-chat/helper/token-interceptor.service'
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { DiscoverChatService } from './discover-chat/discover-chat.service';
 
-
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +70,7 @@ import { TokenInterceptorService } from '../@discover-chat/helper/token-intercep
     MatSnackBarModule,
     MatSelectModule,
     MatToolbarModule,
+    SocketIoModule.forRoot(config),
 
     //Router
     RouterModule.forRoot([
@@ -76,7 +79,7 @@ import { TokenInterceptorService } from '../@discover-chat/helper/token-intercep
       {path: 'discoverchat' , component: DiscoverChatComponent, canActivate: [AuthGuard]}
     ])
   ],
-  providers: [AuthService, SignupPageService, 
+  providers: [AuthService, SignupPageService, DiscoverChatService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

@@ -45,6 +45,7 @@ hr{
 
 .messenger-color {
     background-color: #EDEDED;
+    max-height: 400px;
     overflow-y: scroll;
     padding: 30px;
     .chat-messages .message {
