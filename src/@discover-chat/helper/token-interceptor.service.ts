@@ -9,9 +9,11 @@ export class TokenInterceptorService implements HttpInterceptor {
   currentUser: any;
   constructor(private auth: AuthService) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
     this.currentUser = this.auth.currentUserValue;
-    let tokenizedRequest = req.clone({
+    //console.log(this.currentUser)
+
+    let tokenizedRequest = request.clone({
       setHeaders: {
         Authorization: `Bearer ${this.currentUser.token}`
       }

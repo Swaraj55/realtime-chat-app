@@ -1,8 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { DiscoverChatService } from '../discover-chat/discover-chat.service';
 import { Router } from '@angular/router';
+import {SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
 
+const CURRENT_USER = 'currentUser';
 @Component({
   selector: 'app-discover-chat',
   templateUrl: './discover-chat.component.html',
@@ -20,7 +22,8 @@ export class DiscoverChatComponent implements OnInit {
   constructor(private element: ElementRef,
               private discoverChatService: DiscoverChatService,
               private formBuilder:FormBuilder,
-              private router: Router
+              private router: Router,
+              @Inject(SESSION_STORAGE) private storage: StorageService,
     ) { }
 
   ngOnInit(): void {
@@ -40,7 +43,6 @@ export class DiscoverChatComponent implements OnInit {
     });
 
     this.discoverChatService.getRoomAndUserInfo().subscribe((data: any) => {
-      console.log(data.users)
       this.users = data.users
     })
   }
@@ -63,6 +65,8 @@ export class DiscoverChatComponent implements OnInit {
   }
 
   leaveRoom() {
+    localStorage.removeItem('currentUser');
+    this.storage.remove(CURRENT_USER);
     this.router.navigate(['/'])
   }
 }

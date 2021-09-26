@@ -25,6 +25,10 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
    }
 
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
+
   public loggedIn(payload) {
     let apiEndpoint = 'http://localhost:3000/api/login';
     return this.httpClient.post<any>(apiEndpoint, payload)
@@ -37,19 +41,18 @@ export class AuthService {
               status: authResponse.status,
               name: authResponse.user.name
             };
-
-            localStorage.setItem('user', JSON.stringify(this.theAuthenticatedUser));
-
+            if(authResponse && authResponse.token) {
+              localStorage.setItem('user', JSON.stringify(this.theAuthenticatedUser));
+              this.storage.set(CURRENT_USER, this.theAuthenticatedUser, StorageTranscoders.JSON);
+            }
+            //localStorage.setItem('user', JSON.stringify(this.theAuthenticatedUser));
+            //this.storage.set(CURRENT_USER, this.theAuthenticatedUser, StorageTranscoders.JSON);
             // Set the current user's profile. This can be accessed by other components by injecting
             // this service and subscribing to currentUserValue.
-            this.currentUserSubject.next(this.theAuthenticatedUser);
+            this.currentUserSubject.next(authResponse);
 
-            return this.theAuthenticatedUser; 
+            return this.currentUserValue; 
           }));
-  }
-
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
   }
 
   isLoggedIn() {
@@ -57,8 +60,8 @@ export class AuthService {
     return !!item.token;
   }
 
-  getToken() {
-    console.log(JSON.parse(localStorage.getItem('user')))
-    return JSON.parse(localStorage.getItem('user'))
-  }
+  // getToken() {
+  //   console.log(JSON.parse(localStorage.getItem('user')))
+  //   return JSON.parse(localStorage.getItem('user'))
+  // }
 }
